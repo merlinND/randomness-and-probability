@@ -6,26 +6,27 @@ CC = gcc
 CFLAGS = -DDEBUG -g -Wall
 LNFLAGS = $(LIB_SYS)
 
-# Exe Name
-EXE = simu
+# Exe Sources
+EXE_SRC = simple_output.c
 
-# Sources
-SRC = aes.c mersenne_twister.c von_neumann.c main_debut.c
+# Other Sources
+SRC = old_c_rand.c aes.c mersenne_twister.c von_neumann.c
 
 # Objets
 OBJECTS = $(SRC:%.c=build/%.o)
+EXE_OBJS = $(EXE_SRC:%.c=build/bin/%)
 
 # Phony targets
 .PHONY: clean run
 
 # Rules
-all: build/$(EXE)
+all: $(EXE_OBJS)
 
 clean:
 	rm -rf build/
 
-run: build/$(EXE)
-	cd build; ./$(EXE)
+run: $(EXE_OBJS)
+	./build/bin/simple_output
 
 build/$(EXE): $(OBJECTS)
 	$(CC) -o $@ $^ $(LNFLAGS)
@@ -34,3 +35,7 @@ build/$(EXE): $(OBJECTS)
 build/%.o: src/%.c
 	mkdir -p `dirname $@`
 	$(CC) -c $(CFLAGS) -o $@ $<
+
+build/bin/%: build/%.o $(OBJECTS)
+	mkdir -p `dirname $@`
+	$(CC) -o $@ $^ $(LNFLAGS)
