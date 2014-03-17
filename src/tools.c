@@ -12,7 +12,7 @@ static struct mt19937p mt; // Pour Mersenne-Twister
 static u32 Kx[NK], Kex[NB*NR], Px[NB]; // pour l'AES
 
 void autoseed_old_c_rand() {
-  srand(rdtsc());
+  srand(time(NULL));
   int seed = rand();
   oldinit_rand(seed);
 }

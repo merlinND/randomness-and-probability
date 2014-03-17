@@ -12,20 +12,39 @@
  * @param sequence An array of words, considered as a single bit sequence
  * @return double The probability of observing this sequence
  */
-double frequency(int n, int size, word32 sequence[])
+double run_length(int n, int size, word32 sequence[])
 {
-  long sum = 0;
-  char bit;
+  long nBits = (n * size);
+
+  long numberOfOnes = 0;
+  long variability = 1;
+  char bit, previousBit;
   for (int i = 0; i < n; ++i)
   {
     for (int j = size - 1; j >= 0; --j)
     {
       bit = ((sequence[i] >> j) & 0x0001);
-      sum += (bit == 0 ? -1 : 1);
+      numberOfOnes += (bit == 1 ? 1 : 0);
+
+      if (i != 0 || j != 0)
+        variability += (bit == previousBit ? 0 : 1);
+      previousBit = bit;
     }
   }
+  
+  // Pre-test: proportion of bits==1 in the sequence
+  double p = (numberOfOnes / (double)nBits),
+         threshold = (2 / sqrt(nBits)),
+         tested = fabs(p - 0.5);
+  // printf("pi: %f", p);
+  // printf(" tested : %f", tested);
+  // printf(" threshold: %f\n", threshold);
+  if (tested >= threshold)
+    return 0.0;
 
-  double observed = (abs(sum) / sqrt(n * size));
+  // Run-length test: evaluate the probability of sequences of same-valued bits occuring
+  double pp = (p * (1.0 - p));
+  double observed = (fabs(variability - (2 * nBits * pp)) / (2 * sqrt(2 * nBits) * pp));
   // ERFC returns the p-value of `observed`
   // (assuming it follows the normal distribution)
   return erfc(observed);
@@ -54,12 +73,12 @@ int main()
     generated_AES[i] = (word32) autonext_aes(); // AES
   }
   
-  printf("\n- Monobit frequency test -\n");
-  printf("Oldrand (4 MSBs) p-value: %f\n", frequency(ARRAY_MAX_SIZE, 4, generated_rand_upper));
-  printf("Oldrand (4 LSBs) p-value: %f\n", frequency(ARRAY_MAX_SIZE, 4, generated_rand_lower));
-  printf("Von-Neumann p-value: %f\n", frequency(ARRAY_MAX_SIZE, 16, generated_VN));
-  printf("Mersenne-Twister p-value: %f\n", frequency(ARRAY_MAX_SIZE, 32, generated_MT));
-  printf("AES p-value: %f\n", frequency(ARRAY_MAX_SIZE, 32, generated_AES));
+  printf("\n- Run length test -\n");
+  printf("Oldrand (4 MSBs) p-value: %f\n", run_length(ARRAY_MAX_SIZE, 4, generated_rand_upper));
+  printf("Oldrand (4 LSBs) p-value: %f\n", run_length(ARRAY_MAX_SIZE, 4, generated_rand_lower));
+  printf("Von-Neumann p-value: %f\n", run_length(ARRAY_MAX_SIZE, 16, generated_VN));
+  printf("Mersenne-Twister p-value: %f\n", run_length(ARRAY_MAX_SIZE, 32, generated_MT));
+  printf("AES p-value: %f\n", run_length(ARRAY_MAX_SIZE, 32, generated_AES));
 
   return 0;
 }
