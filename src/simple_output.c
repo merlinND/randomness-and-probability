@@ -2,10 +2,7 @@
 #include <stdio.h>
 #include <time.h>
 
-#include "von_neumann.h"
-#include "aes.h"
-#include "mersenne_twister.h"
-#include "old_c_rand.h"
+#include "tools.h"
 
 #define ARRAY_MAX_SIZE 1000
 
@@ -22,7 +19,7 @@ int main()
 	word32 output_AES = autonext_aes(); // AES
 
 	// affichage
-	printf("- Generation de nombres aleatoires -\n");
+	printf("- Generating sample random numbers -\n");
 	printf("rand du C : %u \n",output_rand);
 	printf("Von Neumann : %u\n",output_VN);
 	printf("Mersenne Twister : %u\n",output_MT);
