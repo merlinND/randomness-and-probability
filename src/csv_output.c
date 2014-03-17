@@ -7,7 +7,7 @@
 #include "mersenne_twister.h"
 #include "old_c_rand.h"
 
-#define ARRAY_MAX_SIZE 1000
+#define ARRAY_MAX_SIZE 1024
 
 int main()
 {
