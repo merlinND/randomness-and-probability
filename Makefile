@@ -7,10 +7,10 @@ CFLAGS = -DDEBUG -g -Wall
 LNFLAGS = $(LIB_SYS)
 
 # Exe Sources
-EXE_SRC = simple_output.c csv_output.c monobit_frequency.c
+EXE_SRC = simple_output.c csv_output.c monobit_frequency.c law_simulations.c
 
 # Other Sources
-SRC = old_c_rand.c aes.c mersenne_twister.c von_neumann.c tools.c
+SRC = old_c_rand.c aes.c mersenne_twister.c von_neumann.c tools.c distributions.c
 
 # Objets
 OBJECTS = $(SRC:%.c=build/%.o)
@@ -30,6 +30,7 @@ run: $(EXE_OBJS)
 	mkdir -p data
 	./build/bin/csv_output > data/rand.csv
 	./build/bin/monobit_frequency
+	./build/bin/law_simulations
 
 build/$(EXE): $(OBJECTS)
 	$(CC) -o $@ $^ $(LNFLAGS)
