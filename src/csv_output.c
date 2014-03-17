@@ -17,7 +17,7 @@ int main()
   autoseed_von_neumann();
   autoseed_mesrene_twister();
 
-  printf("Old Rand Big Endian, Old Rand Little Endian, Von Neumann, Mesrene Twister, AES\n");
+  printf("Old Rand MSB, Old Rand LSB, Von Neumann, Mesrene Twister, AES\n");
   // sorties des generateurs
   for(int i = 0; i < ARRAY_MAX_SIZE; i ++) {
     output_rand = autonext_old_c_rand(); // rand du C
@@ -25,8 +25,8 @@ int main()
     output_MT = autonext_mesrene_twister(); // Mersenne-Twister
     output_AES = autonext_aes(); // AES
 
-    printf("%u,", (output_rand >> 27) & 0x0F);
-    printf("%u,", output_rand & 0x0F);
+    printf("%u,", msb(output_rand));
+    printf("%u,", lsb(output_rand));
     printf("%u,", output_VN);
     printf("%u,", output_MT);
     printf("%u\n",output_AES);

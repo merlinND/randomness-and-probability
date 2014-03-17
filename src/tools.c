@@ -47,3 +47,11 @@ word16 autonext_von_neumann() {
 word32 autonext_mesrene_twister() {
   return genrand(&mt);
 }
+
+int msb(int word) {
+  return (word >> 27) & 0x0F;
+}
+
+int lsb(int word) {
+  return word & 0x0F;
+}
