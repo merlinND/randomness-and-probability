@@ -48,10 +48,10 @@ word32 autonext_mesrene_twister() {
   return genrand(&mt);
 }
 
-word16 msb(int word) {
+word8 msb(int word) {
   return (word >> 27) & 0x0F;
 }
 
-word16 lsb(int word) {
+word8 lsb(int word) {
   return word & 0x0F;
 }

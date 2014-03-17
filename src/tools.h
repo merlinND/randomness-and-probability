@@ -23,8 +23,8 @@ word16 autonext_von_neumann();
 
 word32 autonext_mesrene_twister();
 
-word16 msb(int word);
+word8 msb(int word);
 
-word16 lsb(int word);
+word8 lsb(int word);
 
 #endif
