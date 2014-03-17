@@ -7,7 +7,7 @@
 
 int main()
 {
-  int output_rand;
+  word32 output_rand;
   word32 output_AES;
   word16 output_VN;
   word32 output_MT;

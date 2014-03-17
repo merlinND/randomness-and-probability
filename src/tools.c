@@ -32,7 +32,7 @@ void autoseed_mesrene_twister() {
   sgenrand(time(NULL)+(tmp), &mt);
 }
 
-int autonext_old_c_rand() {
+word32 autonext_old_c_rand() {
   return oldrand();
 }
 
@@ -48,10 +48,10 @@ word32 autonext_mesrene_twister() {
   return genrand(&mt);
 }
 
-int msb(int word) {
+word16 msb(int word) {
   return (word >> 27) & 0x0F;
 }
 
-int lsb(int word) {
+word16 lsb(int word) {
   return word & 0x0F;
 }

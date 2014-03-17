@@ -16,7 +16,7 @@ int main()
 	autoseed_von_neumann();
 	autoseed_mesrene_twister();
 
-	int output_rand = autonext_old_c_rand(); // rand du C
+	word32 output_rand = autonext_old_c_rand(); // rand du C
 	word32 output_VN = autonext_von_neumann(); // Von Neumann
 	word16 output_MT = autonext_mesrene_twister(); // Mersenne-Twister
 	word32 output_AES = autonext_aes(); // AES

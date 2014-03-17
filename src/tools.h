@@ -15,7 +15,7 @@ void autoseed_von_neumann();
 
 void autoseed_mesrene_twister();
 
-int autonext_old_c_rand();
+word32 autonext_old_c_rand();
 
 word32 autonext_aes();
 
@@ -23,8 +23,8 @@ word16 autonext_von_neumann();
 
 word32 autonext_mesrene_twister();
 
-int msb(int word);
+word16 msb(int word);
 
-int lsb(int word);
+word16 lsb(int word);
 
 #endif
