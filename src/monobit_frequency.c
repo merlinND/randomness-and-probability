@@ -18,14 +18,14 @@ double frequency(int n, int size, word32 sequence[])
   char bit;
   for (int i = 0; i < n; ++i)
   {
-    for (int j = 0; j < size; ++j)
+    for (int j = size - 1; j >= 0; --j)
     {
       bit = ((sequence[i] >> j) & 0x0001);
       sum += (bit == 0 ? -1 : 1);
     }
   }
 
-  double observed = (abs(sum) / sqrt(n));
+  double observed = (abs(sum) / sqrt(n * size));
   // ERFC returns the p-value of `observed`
   // (assuming it follows the normal distribution)
   return erfc(observed);
