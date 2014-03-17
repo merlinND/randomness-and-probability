@@ -23,7 +23,7 @@ void autoseed_aes() {
 }
 
 void autoseed_von_neumann() {
-  x=1111;
+  x = 1000 + (time(NULL) % 8999);
 }
 
 void autoseed_mesrene_twister() {
