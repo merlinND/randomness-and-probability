@@ -10,7 +10,7 @@ LNFLAGS = $(LIB_SYS)
 EXE_SRC = simple_output.c csv_output.c
 
 # Other Sources
-SRC = old_c_rand.c aes.c mersenne_twister.c von_neumann.c
+SRC = old_c_rand.c aes.c mersenne_twister.c von_neumann.c tools.c
 
 # Objets
 OBJECTS = $(SRC:%.c=build/%.o)
