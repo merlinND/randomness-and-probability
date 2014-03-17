@@ -14,5 +14,5 @@ double next_uniform_value() {
 }
 
 double next_exponential_value(double lambda) {
-  return 1 - exp(-lambda * next_uniform_value());
+  return - (log(1 - next_uniform_value()) / lambda);
 }
