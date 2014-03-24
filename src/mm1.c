@@ -12,30 +12,31 @@ void history_to_csv(history_t const * history) {
   }
 }
 
-/* Run a simulation in which:
+/* Run an M/M/n simulation in which:
+ * - <n> servers are available to handle clients
  * - <meanArrival> clients arrive per hour on average
  * - <meanDeparture> clients leave per hour on average
  * - simulation runs for <duration> minutes
  * And print every relevant information.
  */
-void run_simulation(int meanArrival, int meanDeparture, int duration) {
-  printf(" - MM1 %d arrivals/hour, %d departures/hour during %d minutes\n", meanArrival, meanDeparture, duration);
+void run_simulation(int n, int meanArrival, int meanDeparture, int duration) {
+  printf("-- M/M/%d %d arrivals/hour, %d departures/hour during %d minutes --\n", n, meanArrival, meanDeparture, duration);
 
   double lambda = (meanArrival / 60.);
-  double mu = (meanDeparture / 60.);
+  double mu = n * (meanDeparture / 60.);
   queue_t q = mm1_queue(lambda, mu, duration);
 
   history_t h = make_history(&q);
-  history_to_csv(&h);
-
   printf("Mean clients number: %f\n", mean_clients_number(&h));
   printf("Mean waiting time: %f\n", mean_waiting_time(&q));
+
+  history_to_csv(&h);
 }
 
 int main() {
-  run_simulation(12, 20, 180);
+  run_simulation(1, 12, 20, 180);
   printf("\n\n");
-  run_simulation(18, 20, 180);
+  run_simulation(1, 18, 20, 180);
   printf("\n\n");
-  run_simulation(25, 20, 180);
+  run_simulation(2, 12, 20, 180);
 }

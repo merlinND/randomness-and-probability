@@ -37,8 +37,6 @@ queue_t mm1_queue(double lambda, double mu, double duration) {
   return sim;
 }
 
-// TODO: M/M/2 queue
-
 history_t make_history(queue_t const * q) {
   history_t history;
   history.size = 0;
@@ -76,6 +74,8 @@ double mean_clients_number(history_t const * h) {
   double total = (h->points[h->size - 1].t - h->points[0].t);
   return (sum / total);
 }
+
+// Actual waiting time = time in queue + time being served
 double mean_waiting_time(queue_t const * q) {
   double sum = 0;
   for (int i = 0; i < q->departuresSize; ++i) {
