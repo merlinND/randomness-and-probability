@@ -20,9 +20,8 @@ queue_t mm1Queue(double lambda, double mu, double duration) {
 			sim.arrivals[sim.arrivalsSize] = t;
 			sim.arrivalsSize++;
 
-
 			// This person arrived and could be served immediately
-			if (sim.arrivalsSize <= 1 || sim.arrivals[sim.departuresSize - 1] >= sim.departures[sim.departuresSize - 1]) {
+			if (sim.arrivalsSize <= 1 || sim.arrivals[sim.arrivalsSize - 1] >= sim.departures[sim.arrivalsSize - 1]) {
 				out = t + next_exponential_value(mu);
 			}
 			// This person arrived but someone else was being served
