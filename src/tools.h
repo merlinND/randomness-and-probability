@@ -2,6 +2,7 @@
 #define TOOLS_H
 
 #include <stdlib.h>
+#include <stdint.h>
 
 typedef uint32_t word32;
 typedef uint16_t word16;
