@@ -11,7 +11,7 @@ struct queue_t {
 	// Times of departures
 	double departures[MAX_QUEUE_SIZE];
 };
-typedef queue_t queue_t;
+typedef struct queue_t queue_t;
 
 void queue_to_csv(queue_t q);
 
