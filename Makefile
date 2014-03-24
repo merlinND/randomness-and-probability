@@ -3,7 +3,7 @@ LIB_SYS = -lm
 
 # Compilation Binaries
 CC = gcc
-CFLAGS = -DDEBUG -g -Wall
+CFLAGS = -DDEBUG -g -Wall -std=c99
 LNFLAGS = $(LIB_SYS)
 
 # Exe Sources
