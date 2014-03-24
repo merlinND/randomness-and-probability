@@ -83,3 +83,13 @@ double mean_waiting_time(queue_t const * q) {
   }
   return (sum / q->departuresSize);
 }
+
+void history_to_csv(history_t const * history) {
+  printf("Timestamp,Number\n");
+
+  data_point_t point;
+  for (int i = 0; i < history->size; ++i) {
+    point = history->points[i];
+    printf("%f,%d\n", point.t, point.n);
+  }
+}

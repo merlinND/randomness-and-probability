@@ -2,11 +2,55 @@
 #include <stdio.h>
 #include "tools.h"
 #include "tests.h"
+#include "queues.h"
 
 #define MAX_TRIES 20
 #define ARRAY_MAX_SIZE 1024
 
 #define CSV_HEADER "Oldrand 4 MSBs,Oldrand 4 LSBs,Von-Neumann,Mesrene-Twister,AES\n"
+
+/* Run a simulation in which:
+ * - <meanArrival> clients arrive per hour on average
+ * - <meanDeparture> clients leave per hour on average
+ * - simulation runs for <duration> minutes
+ * And print every relevant information.
+ */
+void run_simulation(int meanArrival, int meanDeparture, int duration) {
+  printf("### %d arrivals/hour, %d departures/hour during %d minutes\n\n", meanArrival, meanDeparture, duration);
+
+  double lambda = (meanArrival / 60.);
+  double mu = (meanDeparture / 60.);
+  queue_t q = mm1_queue(lambda, mu, duration);
+
+  printf("#### Arrival & Departure times\n\n");
+
+  printf("##### Arrival times\n\n");
+
+  for(int i = 1; i <= q.arrivalsSize; i ++) {
+    printf("%d. %f minutes\n", i, q.arrivals[i - 1]);
+  }
+  printf("\n");
+
+  printf("##### Departure times\n\n");
+
+  for(int i = 1; i <= q.departuresSize; i ++) {
+    printf("%d. %f minutes\n", i, q.departures[i - 1]);
+  }
+  printf("\n");
+
+  printf("#### Queue evolution\n\n");
+
+  history_t h = make_history(&q);
+
+  printf("```\n");
+  history_to_csv(&h);
+  printf("```\n\n");
+
+  printf("#### Statistics\n\n");
+
+  printf(" - Mean clients number: %f\n", mean_clients_number(&h));
+  printf(" - Mean waiting time: %f\n\n", mean_waiting_time(&q));
+}
 
 int main()
 {
@@ -61,5 +105,12 @@ int main()
     printf(" - Mesrene Twister: %f\n", run_length(ARRAY_MAX_SIZE, 4, generated_MT));
     printf(" - AES: %f\n\n", run_length(ARRAY_MAX_SIZE, 4, generated_AES));
   }
+
+  printf("## M/M/1 queue system\n\n");
+
+  run_simulation(12, 20, 180);
+
+  run_simulation(24, 20, 180);
+
   return 0;
 }
