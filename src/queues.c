@@ -62,4 +62,3 @@ void queue_to_csv(queue_t q) {
     }
   }
 }
->>>>>>> FETCH_HEAD
