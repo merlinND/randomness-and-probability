@@ -15,21 +15,24 @@ queue_t mm1Queue(double lambda, double mu, double duration) {
 	// Run the simulation in time
 	while (t < duration && sim.arrivalsSize < MAX_QUEUE_SIZE) {
 		t += next_exponential_value(lambda);
-		sim.arrivals[sim.arrivalsSize] = t;
-		sim.arrivalsSize++;
+
+		if (t < duration) {
+			sim.arrivals[sim.arrivalsSize] = t;
+			sim.arrivalsSize++;
 
 
-		// This person arrived and could be served immediately
-		if (sim.arrivalsSize <= 1 || sim.arrivals[sim.departuresSize - 1] >= sim.departures[sim.departuresSize - 1]) {
-			out = t + next_exponential_value(mu);
-		}
-		// This person arrived but someone else was being served
-		else {
-			out = sim.departures[sim.departuresSize - 1] + next_exponential_value(mu);
-		}
-		if (out < duration) {
-			sim.departures[sim.departuresSize] = out;
-			sim.departuresSize++;
+			// This person arrived and could be served immediately
+			if (sim.arrivalsSize <= 1 || sim.arrivals[sim.departuresSize - 1] >= sim.departures[sim.departuresSize - 1]) {
+				out = t + next_exponential_value(mu);
+			}
+			// This person arrived but someone else was being served
+			else {
+				out = sim.departures[sim.departuresSize - 1] + next_exponential_value(mu);
+			}
+			if (out < duration) {
+				sim.departures[sim.departuresSize] = out;
+				sim.departuresSize++;
+			}
 		}
 	}
 
