@@ -21,6 +21,8 @@ make run
 
 You can find the raw data report written in [Markdown](https://daringfireball.net/projects/markdown/) in the `data/` directory.
 
+There's an example at [`data/example-report.md`](data/example-report.md).
+
 Human Report
 ------------
 

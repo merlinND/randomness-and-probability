@@ -21,4 +21,4 @@
 *.m~
 
 build/
-data/
+data/report.md
