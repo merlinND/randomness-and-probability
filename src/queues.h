@@ -13,7 +13,8 @@ struct queue_t {
 };
 typedef struct queue_t queue_t;
 
-
 queue_t mm1Queue(double lambda, double mu, double duration);
+
+void queue_to_csv(queue_t q);
 
 #endif
