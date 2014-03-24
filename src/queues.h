@@ -11,6 +11,9 @@ struct queue_t {
 	// Times of departures
 	double departures[MAX_QUEUE_SIZE];
 };
-typedef queue_t queue_t;
+typedef struct queue_t queue_t;
+
+
+queue_t mm1Queue(double lambda, double mu, double duration);
 
 #endif
