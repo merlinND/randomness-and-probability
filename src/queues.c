@@ -40,19 +40,30 @@ queue_t mm1Queue(double lambda, double mu, double duration) {
 
 void queue_to_csv(queue_t q) {
   printf("Timestamp,Number\n");
+history_t make_history(queue_t const * q) {
+  history_t history;
+  history.size = 0;
+
   int count = 0;
   int itArrivals = 0;
   int itDepartures = 0;
-  while(itArrivals < q.arrivalsSize || itDepartures < q.departuresSize) {
-    if((itArrivals < q.arrivalsSize && q.arrivals[itArrivals] <=
-        q.departures[itDepartures]) || itDepartures >=  q.departuresSize) {
-      count ++;
-      printf("%f,%d\n", q.arrivals[itArrivals], count);
-      itArrivals ++;
+  while(itArrivals < q->arrivalsSize || itDepartures < q->departuresSize) {
+    if((itArrivals < q->arrivalsSize && q->arrivals[itArrivals] <=
+        q->departures[itDepartures]) || itDepartures >=  q->departuresSize) {
+      count++;
+      history.points[history.size].t = q->arrivals[itArrivals];
+      history.points[history.size].n = count;
+      itArrivals++;
     } else {
-      count --;
-      printf("%f,%d\n", q.departures[itDepartures], count);
-      itDepartures ++;
+      count--;
+      history.points[history.size].t = q->departures[itDepartures];
+      history.points[history.size].n = count;
+      itDepartures++;
     }
+    history.size++;
+  }
+
+  return history;
+}
   }
 }
