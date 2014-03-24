@@ -26,12 +26,15 @@ clean:
 	rm -rf build/
 
 run: $(EXE_OBJS)
-	./build/bin/simple_output
 	mkdir -p data
-	./build/bin/csv_output > data/rand.csv
-	./build/bin/monobit_frequency
-	./build/bin/run_length
-	./build/bin/law_simulations
+	echo "Oldrand 4 MSBs,Oldrand 4 LSBs,Von-Neumann,Mesrene-Twister,AES" > data/monobit.csv
+	cat data/monobit.csv > data/runs.csv
+	i=1 ; while [[ $$i -le 20 ]] ; do \
+	./build/bin/csv_output > "data/rands_$$i.csv" ; \
+	./build/bin/monobit_frequency >> "data/monobit.csv" ; \
+	./build/bin/run_length >> "data/runs.csv" ; \
+	((i = i + 1)) ; \
+	done
 	./build/bin/mm1
 
 build/$(EXE): $(OBJECTS)

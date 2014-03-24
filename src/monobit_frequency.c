@@ -53,13 +53,12 @@ int main()
     generated_MT[i] = (word32) autonext_mesrene_twister(); // Mersenne-Twister
     generated_AES[i] = (word32) autonext_aes(); // AES
   }
-  
-  printf("\n- Monobit frequency test -\n");
-  printf("Oldrand (4 MSBs) p-value: %f\n", frequency(ARRAY_MAX_SIZE, 4, generated_rand_upper));
-  printf("Oldrand (4 LSBs) p-value: %f\n", frequency(ARRAY_MAX_SIZE, 4, generated_rand_lower));
-  printf("Von-Neumann p-value: %f\n", frequency(ARRAY_MAX_SIZE, 16, generated_VN));
-  printf("Mersenne-Twister p-value: %f\n", frequency(ARRAY_MAX_SIZE, 32, generated_MT));
-  printf("AES p-value: %f\n", frequency(ARRAY_MAX_SIZE, 32, generated_AES));
+  printf("%f,%f,%f,%f,%f\n",
+    frequency(ARRAY_MAX_SIZE, 4, generated_rand_upper),
+    frequency(ARRAY_MAX_SIZE, 4, generated_rand_lower),
+    frequency(ARRAY_MAX_SIZE, 16, generated_VN),
+    frequency(ARRAY_MAX_SIZE, 32, generated_MT),
+    frequency(ARRAY_MAX_SIZE, 32, generated_AES));
 
   return 0;
 }

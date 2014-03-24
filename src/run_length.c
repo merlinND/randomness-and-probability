@@ -31,7 +31,7 @@ double run_length(int n, int size, word32 sequence[])
       previousBit = bit;
     }
   }
-  
+
   // Pre-test: proportion of bits==1 in the sequence
   double p = (numberOfOnes / (double)nBits),
          threshold = (2 / sqrt(nBits)),
@@ -72,13 +72,13 @@ int main()
     generated_MT[i] = (word32) autonext_mesrene_twister(); // Mersenne-Twister
     generated_AES[i] = (word32) autonext_aes(); // AES
   }
-  
-  printf("\n- Run length test -\n");
-  printf("Oldrand (4 MSBs) p-value: %f\n", run_length(ARRAY_MAX_SIZE, 4, generated_rand_upper));
-  printf("Oldrand (4 LSBs) p-value: %f\n", run_length(ARRAY_MAX_SIZE, 4, generated_rand_lower));
-  printf("Von-Neumann p-value: %f\n", run_length(ARRAY_MAX_SIZE, 16, generated_VN));
-  printf("Mersenne-Twister p-value: %f\n", run_length(ARRAY_MAX_SIZE, 32, generated_MT));
-  printf("AES p-value: %f\n", run_length(ARRAY_MAX_SIZE, 32, generated_AES));
+
+  printf("%f,%f,%f,%f,%f\n",
+    run_length(ARRAY_MAX_SIZE, 4, generated_rand_upper),
+    run_length(ARRAY_MAX_SIZE, 4, generated_rand_lower),
+    run_length(ARRAY_MAX_SIZE, 16, generated_VN),
+    run_length(ARRAY_MAX_SIZE, 32, generated_MT),
+    run_length(ARRAY_MAX_SIZE, 32, generated_AES));
 
   return 0;
 }

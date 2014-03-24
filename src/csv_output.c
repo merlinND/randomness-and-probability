@@ -17,7 +17,7 @@ int main()
   autoseed_von_neumann();
   autoseed_mesrene_twister();
 
-  printf("Old Rand MSB, Old Rand LSB, Von Neumann, Mesrene Twister, AES\n");
+  printf("Oldrand 4 MSBs,Oldrand 4 LSBs,Von-Neumann,Mesrene-Twister,AES\n");
   // sorties des generateurs
   for(int i = 0; i < ARRAY_MAX_SIZE; i ++) {
     output_rand = autonext_old_c_rand(); // rand du C
