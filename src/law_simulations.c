@@ -5,8 +5,8 @@
 
 #include "tools.h"
 #include "distributions.h"
-#define ARRAY_MAX_SIZE 5
-#define LAMBDA 0.5
+#define ARRAY_MAX_SIZE 1024
+#define LAMBDA 10
 
 
 int main() {
