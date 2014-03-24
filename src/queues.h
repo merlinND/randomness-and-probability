@@ -31,4 +31,6 @@ history_t make_history(queue_t const * q);
 double mean_clients_number(history_t const * h);
 double mean_waiting_time(queue_t const * q);
 
+void history_to_csv(history_t const * history);
+
 #endif

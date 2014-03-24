@@ -3,14 +3,14 @@ LIB_SYS = -lm
 
 # Compilation Binaries
 CC = gcc
-CFLAGS = -DDEBUG -g -Wall
+CFLAGS = -DDEBUG -g -Wall -std=c99
 LNFLAGS = $(LIB_SYS)
 
 # Exe Sources
-EXE_SRC = simple_output.c csv_output.c monobit_frequency.c run_length.c law_simulations.c mm1.c
+EXE_SRC = final.c
 
 # Other Sources
-SRC = old_c_rand.c aes.c mersenne_twister.c von_neumann.c tools.c distributions.c queues.c
+SRC = old_c_rand.c aes.c mersenne_twister.c von_neumann.c tools.c distributions.c queues.c tests.c
 
 # Objets
 OBJECTS = $(SRC:%.c=build/%.o)
@@ -27,15 +27,9 @@ clean:
 
 run: $(EXE_OBJS)
 	mkdir -p data
-	echo "Oldrand 4 MSBs,Oldrand 4 LSBs,Von-Neumann,Mesrene-Twister,AES" > data/monobit.csv
-	cat data/monobit.csv > data/runs.csv
-	i=1 ; while [[ $$i -le 20 ]] ; do \
-	./build/bin/csv_output > "data/rands_$$i.csv" ; \
-	./build/bin/monobit_frequency >> "data/monobit.csv" ; \
-	./build/bin/run_length >> "data/runs.csv" ; \
-	((i = i + 1)) ; \
-	done
-	./build/bin/mm1
+	build/bin/final > data/report.md
+	cat data/report.md
+
 
 build/$(EXE): $(OBJECTS)
 	$(CC) -o $@ $^ $(LNFLAGS)

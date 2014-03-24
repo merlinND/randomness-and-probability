@@ -7,10 +7,7 @@
 #include <math.h>
 #include "mersenne_twister.h"
 #include "aes.h"
-
-typedef uint32_t word32;
-typedef uint16_t word16;
-typedef uint8_t word8;
+#include "tools.h"
 
 // cette fonction permet de connaitre la taille d�cimale d'un nombre n�cessaire pour le calcul de VON NEUMANN
 int Dec_size(word32 e);
