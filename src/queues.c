@@ -5,38 +5,30 @@
 
 queue_t mm1Queue(double lambda, double mu, double duration) {
 	// Init
-	double t = 0;
+	double t, out = 0;
 	queue_t sim;
 	sim.arrivalsSize = 0;
 	sim.departuresSize = 0;
 
 	init_distributions();
 
-	// Arrivals
+	// Run the simulation in time
 	while (t < duration && sim.arrivalsSize < MAX_QUEUE_SIZE) {
 		t += next_exponential_value(lambda);
 		sim.arrivals[sim.arrivalsSize] = t;
 		sim.arrivalsSize++;
-	}
 
-	// Departures
-	if (sim.arrivalsSize > 0) {
 
-		// The first client doesn't have to wait
-		t = sim.arrivals[0];
-		t += next_exponential_value(mu);
-		sim.departures[sim.departuresSize] = t;
-		sim.departuresSize++;
-
-		while (t < duration && sim.departuresSize < sim.arrivalsSize - 1) {
-			// Someone arrived while the previous person was being served
-			if (sim.arrivals[sim.departuresSize - 1] < sim.departures[sim.departuresSize - 1])
-				t += next_exponential_value(mu);
-			// Someone arrived and could be served immediately
-			else
-				t = sim.arrivals[sim.departuresSize] + next_exponential_value(mu);
-
-			sim.departures[sim.departuresSize] = t;
+		// This person arrived and could be served immediately
+		if (sim.arrivalsSize <= 1 || sim.arrivals[sim.departuresSize - 1] >= sim.departures[sim.departuresSize - 1]) {
+			out = t + next_exponential_value(mu);
+		}
+		// This person arrived but someone else was being served
+		else {
+			out = sim.departures[sim.departuresSize - 1] + next_exponential_value(mu);
+		}
+		if (out < duration) {
+			sim.departures[sim.departuresSize] = out;
 			sim.departuresSize++;
 		}
 	}
