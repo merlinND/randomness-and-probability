@@ -18,7 +18,7 @@ void autoseed_old_c_rand() {
 }
 
 void autoseed_aes() {
-  init_rand(Kx, Px, NK, NB, 45);
+  init_rand(Kx, Px, NK, NB, time(NULL) % 1000);
   KeyExpansion(Kex,Kx);
 }
 
