@@ -31,9 +31,7 @@ double run_length(int n, int size, word32 sequence[])
   double p = (numberOfOnes / (double)nBits),
          threshold = (2 / sqrt(nBits)),
          tested = fabs(p - 0.5);
-  // printf("pi: %f", p);
-  // printf(" tested : %f", tested);
-  // printf(" threshold: %f\n", threshold);
+  
   if (tested >= threshold)
     return 0.0;
 
